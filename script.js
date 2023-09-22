@@ -1,37 +1,75 @@
+const rock = document.querySelector('#rock');
+const paper = document.querySelector('#paper')
+const scissors = document.querySelector('#scissors')
+const results = document.querySelector('#results')
+const playerScoreDiv = document.querySelector('#player-score')
+const computerScoreDiv = document.querySelector('#computer-score')
+const winner = document.querySelector('#winner')
+
+let playerScore = 0;
+let computerScore = 0;
+
 
 function game(){
 
-    function getComputerChoice(){
-        const choices = ["rock", "paper", "scissor"]
+
+    let getComputerChoice = () => {
+        const choices = ["rock", "paper", "scissors"]
     
         const randomChoice = choices[Math.floor(Math.random() * choices.length)];
         return randomChoice;
     }
 
-    function getPlayerChoice(){
-        const userChoice = prompt("Hello, pick your weapon. [rock, paper or scissor]").toLowerCase();
-        return userChoice;
-    }
 
-    const playerSelection = getPlayerChoice();
-    const computerSelection = getComputerChoice();
+    let updateScores = () => {
+        winner.textContent = "";
+        playerScoreDiv.textContent = "Player score: " + playerScore;
+        computerScoreDiv.textContent = "Computer score: " + computerScore;
 
-    function determineWinner(playerSelection, computerSelection){
-        if (playerSelection == computerSelection){
-            return "It's a draw. " + "You picked " + playerSelection  + " the computer picked " + computerSelection + ".";
-        } else if(
-            (playerSelection == "rock" && computerSelection == "scissor") ||
-            (playerSelection == "paper" && computerSelection == "rock") ||
-            (playerSelection == "scissor" && computerSelection == "paper")
-        ){
-            return "You won! " + playerSelection + " beats " + computerSelection + ".";
-        } else {
-            return "You lose! " + playerSelection + " gets defeated by " + computerSelection + ".";
+        if(playerScore === 5 || computerScore === 5){
+            winner.textContent = (playerScore === 5) ? "Player wins!": "Computer wins!";
+
+            playerScore = 0;
+            computerScore = 0;
         }
+
+
     }
 
-    const result = determineWinner(playerSelection, computerSelection);
-    console.log(result)
+    let playRound = (playerChoice) =>{
+        const computerChoice = getComputerChoice();
+
+        if (playerChoice === computerChoice) {
+            results.textContent = `It's a draw! Both chose ${playerChoice}.`;
+        } else if (
+            (playerChoice === "rock" && computerChoice === "scissors") ||
+            (playerChoice === "paper" && computerChoice === "rock") ||
+            (playerChoice === "scissors" && computerChoice === "paper")
+        ) {
+            playerScore++;
+            results.textContent = `You win this round! ${playerChoice} beats ${computerChoice}.`;
+        } else {
+            computerScore++;
+            results.textContent = `You lose this round. ${computerChoice} beats ${playerChoice}.`;
+        }
+        
+        updateScores();
+    }
+
+    rock.addEventListener('click', () => {
+        playRound('rock');
+    
+    }
+    )
+    
+    paper.addEventListener('click', () => {
+        playRound('paper')
+    })
+    
+    scissors.addEventListener('click', () =>{
+        playRound('scissors')
+    })
 }
 
 game();
+
