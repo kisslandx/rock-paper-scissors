@@ -5,12 +5,16 @@ const results = document.querySelector('#results')
 const playerScoreDiv = document.querySelector('#player-score')
 const computerScoreDiv = document.querySelector('#computer-score')
 const winner = document.querySelector('#winner')
+const playAgain = document.querySelector('#play-again')
+const title = document.querySelector('#title')
 
 let playerScore = 0;
 let computerScore = 0;
 
 
 function game(){
+    playAgain.style.display = "none";
+
     let getComputerChoice = () => {
         const choices = ["rock", "paper", "scissors"]
     
@@ -27,12 +31,31 @@ function game(){
         if(playerScore === 5 || computerScore === 5){
             winner.textContent = (playerScore === 5) ? "Player wins!": "Computer wins!";
 
-            playerScore = 0;
-            computerScore = 0;
+            rock.disabled = true;
+            paper.disabled = true;
+            scissors.disabled = true;
+            
+            playAgain.style.display = "block";
         }
-
-
     }
+
+    playAgain.addEventListener('click', () => {
+        rock.disabled = false;
+        paper.disabled = false;
+        scissors.disabled = false;
+
+        playAgain.style.display = "none";
+
+        playerScore = 0;
+        computerScore = 0;
+        playerScoreDiv.textContent = "";
+        computerScoreDiv.textContent = "";
+        winner.textContent = "";
+        results.textContent = "";
+
+        title.style.display = "block";
+        
+    })
 
     let playRound = (playerChoice) =>{
         const computerChoice = getComputerChoice();
@@ -54,18 +77,25 @@ function game(){
         updateScores();
     }
 
+
+
     rock.addEventListener('click', () => {
         playRound('rock');
+        title.style.display = "none";
     
     }
     )
     
     paper.addEventListener('click', () => {
         playRound('paper')
+        title.style.display = "none";
+
     })
     
     scissors.addEventListener('click', () =>{
         playRound('scissors')
+        title.style.display = "none";
+
     })
 }
 

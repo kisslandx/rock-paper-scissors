@@ -37,3 +37,15 @@ button{
     color: white;
     gap: 5vh;
 }
+
+#play-again{
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+    font-size: 1em;
+    height: 5vh;
+    width: 15vw;
+}
+
+h1{
+    margin-bottom: 10vh;
+    color: white;
+}
