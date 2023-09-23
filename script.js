@@ -11,8 +11,6 @@ let computerScore = 0;
 
 
 function game(){
-
-
     let getComputerChoice = () => {
         const choices = ["rock", "paper", "scissors"]
     
